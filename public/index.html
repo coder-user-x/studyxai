@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>StudyxAi Chat</title>
     <link rel="stylesheet" href="style.css">
-    <style>
+        <style>
         /* --- Styles added directly in index.html --- */
 
         /* Body setup for flex layout and background */
@@ -105,7 +105,7 @@
             z-index: 1; /* Ensure title is above background shapes */
             position: relative; /* Needed for z-index */
             letter-spacing: 2px; /* Add some spacing */
-            /* No flex properties needed here, just takes its natural height */
+            flex-shrink: 0; /* Prevent title from shrinking */
         }
 
 
@@ -116,11 +116,13 @@
             background-color: rgba(255, 255, 255, 0.95); /* Slightly transparent white background */
             box-shadow: 0 0 15px rgba(0, 0, 0, 0.3); /* Initial shadow */
             border-radius: 8px;
-            overflow: hidden;
+            overflow: hidden; /* Keep this */
             display: flex; /* Make container a flex container */
             flex-direction: column; /* Stack chat box and input area vertically */
-            /* --- REMOVED: height: calc(100vh - 120px); --- */
             flex-grow: 1; /* ALLOW chat container to grow and take remaining vertical space in the body */
+            /* --- ADDED --- */
+            height: 100%; /* Explicitly take 100% of the available height given by flex-grow */
+            /* --- END ADDED --- */
             min-height: 0; /* Important: Allows flex item to shrink below content size */
             z-index: 1; /* Ensure container is above background shapes */
             position: relative; /* Needed for z-index and glow */
@@ -141,7 +143,6 @@
          /* Chat box (conversation history) */
          .chat-box {
              /* ... previous styles ... */
-             /* --- REMOVED: height: calc(100% - 65px); --- */
              flex-grow: 1; /* ALLOW chat box to grow and fill space inside the chat container */
              min-height: 0; /* Important: Allows flex item to shrink below content size */
              box-sizing: border-box; /* Include padding in height/width */
@@ -228,7 +229,7 @@
     <div class="chat-container">
         <div class="chat-box" id="chatBox">
             <div class="message ai-message">
-                <p>Hello! I'm StudyxAi. How can I help you study today?</p>
+                <p>Hello! I'm StudyxAi developed by Study Smarter. How can I help you study today?</p>
             </div>
         </div>
         <div class="input-area">
