@@ -152,18 +152,19 @@
          }
 
          /* Style Input Area */
-         .input-area {
-             display: flex; /* Input area is also a flex container for input field and button */
-             padding: 15px; /* Keep padding here for spacing around input elements */
-             border-top: 1px solid #eee;
-             background-color: rgba(255, 255, 255, 0.8); /* Slightly transparent background */
-             flex-shrink: 0; /* Prevent it from shrinking */
-             margin: 0; /* Ensure no extra margin */
-             box-sizing: border-box; /* Include padding and border in element's total size */
-             /* --- ADDED: Explicit min-height to ensure it's visible --- */
-             min-height: 60px; /* Ensure it has a minimum visible height - adjust if needed */
-             align-items: center; /* Vertically center content inside input area */
-         }
+          .input-area {
+     display: flex !important; /* Force display flex */
+     visibility: visible !important; /* Force visibility */
+     height: auto !important; /* Prevent height collapse */
+     min-height: 60px !important; /* Force minimum height */
+     background-color: rgba(0, 255, 0, 0.5) !important; /* Make it a visible green box */
+     border: 2px solid red !important; /* Add a red border */
+     /* Keep your other input-area styles below these !important rules */
+     padding: 15px;
+     border-top: 1px solid #eee;
+     /* ... etc ... */
+          }
+                   
 
          .input-area input[type="text"] {
              flex-grow: 1; /* Allow input field to grow and fill horizontal space */
