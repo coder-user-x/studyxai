@@ -5,12 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>StudyxAi Chat</title>
     <link rel="stylesheet" href="style.css">
-               <style>
+           <style>
+        /* --- ADDED: Ensure consistent box model for all elements --- */
+        * {
+            box-sizing: border-box;
+        }
+        /* --- End Added --- */
+
         /* --- Styles added directly in index.html --- */
 
         /* Body setup for flex layout and background */
         body {
-            font-family: sans-serif; /* Ensure font is applied */
+            font-family: sans-serif;
             margin: 0; /* Ensure body margin is 0 */
             padding: 0; /* Ensure body padding is 0 */
             overflow: hidden; /* Hide moving shapes outside viewport */
@@ -99,7 +105,8 @@
         .app-title {
             text-align: center;
             color: #fff; /* White text */
-            margin: 15px auto; /* Top/Bottom margin, auto left/right for centering */
+            /* --- CHANGED: Slightly reduced top/bottom margin again --- */
+            margin: 10px auto; /* Adjust top/bottom margin as needed */
             font-size: 2.8em; /* Larger font size */
             text-shadow: 3px 3px 6px rgba(0,0,0,0.6); /* Stronger shadow */
             z-index: 1; /* Ensure title is above background shapes */
@@ -120,11 +127,12 @@
             display: flex; /* Make container a flex container */
             flex-direction: column; /* Stack chat box and input area vertically */
             flex-grow: 1; /* ALLOW chat container to grow and take remaining vertical space in the body */
-            /* --- REMOVED: height: 100%; --- */ /* Rely only on flex-grow */
+            /* Rely only on flex-grow */
             min-height: 0; /* Important: Allows flex item (and its content) to shrink below content size */
             z-index: 1; /* Ensure container is above background shapes */
             position: relative; /* Needed for z-index and glow */
-            margin-bottom: 15px; /* Adjust bottom margin as needed */
+             /* --- CHANGED: Slightly reduced bottom margin again --- */
+            margin-bottom: 10px; /* Adjust bottom margin as needed */
             padding: 0; /* Remove padding from container itself */
 
 
@@ -140,31 +148,28 @@
 
          /* Chat box (conversation history) */
          .chat-box {
-             /* ... previous styles ... */
              flex-grow: 1; /* ALLOW chat box to grow and fill space inside the chat container */
              min-height: 0; /* Important: Allows flex item to shrink below content size */
-             box-sizing: border-box; /* Include padding and border in element's total size */
+             /* box-sizing: border-box; - Inherited from * now */
              padding: 15px; /* Keep padding here for inner spacing */
-             overflow-y: auto; /* --- KEEP THIS: Enables vertical scrolling --- */
+             overflow-y: auto; /* KEEP THIS: Enables vertical scrolling */
              background-color: transparent; /* Ensure chat box doesn't hide container background */
-              /* Optional: Add some padding-bottom to make the last message not hidden by scrollbar */
+             /* Optional: Add some padding-bottom to make the last message not hidden by scrollbar */
              padding-bottom: 20px;
          }
 
          /* Style Input Area */
-          .input-area {
-     display: flex !important; /* Force display flex */
-     visibility: visible !important; /* Force visibility */
-     height: auto !important; /* Prevent height collapse */
-     min-height: 60px !important; /* Force minimum height */
-     background-color: rgba(0, 255, 0, 0.5) !important; /* Make it a visible green box */
-     border: 2px solid red !important; /* Add a red border */
-     /* Keep your other input-area styles below these !important rules */
-     padding: 15px;
-     border-top: 1px solid #eee;
-     /* ... etc ... */
-          }
-                   
+         .input-area {
+             display: flex; /* Input area is also a flex container for input field and button */
+             padding: 15px; /* Keep padding here for spacing around input elements */
+             border-top: 1px solid #eee;
+             background-color: rgba(255, 255, 255, 0.8); /* Slightly transparent background */
+             flex-shrink: 0; /* Prevent it from shrinking */
+             margin: 0; /* Ensure no extra margin */
+             /* box-sizing: border-box; - Inherited from * now */
+             min-height: 60px; /* Ensure it has a minimum visible height - adjust if needed */
+             align-items: center; /* Vertically center content inside input area */
+         }
 
          .input-area input[type="text"] {
              flex-grow: 1; /* Allow input field to grow and fill horizontal space */
@@ -175,7 +180,7 @@
              font-size: 1em;
              outline: none; /* Remove default outline */
              transition: border-color 0.3s ease, box-shadow 0.3s ease; /* Smooth transition */
-             box-sizing: border-box; /* Include padding and border in element's total size */
+             /* box-sizing: border-box; - Inherited from * now */
          }
 
          .input-area input[type="text"]:focus {
@@ -194,7 +199,7 @@
              transition: opacity 0.3s ease, transform 0.3s ease; /* Smooth transition */
              outline: none; /* Remove default outline */
               flex-shrink: 0; /* Prevent button from shrinking */
-              box-sizing: border-box; /* Include padding and border in element's total size */
+              /* box-sizing: border-box; - Inherited from * now */
          }
 
          .input-area button:hover {
