@@ -5,8 +5,106 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>StudyxAi Chat</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+        /* Styles added directly in index.html */
+
+        /* Body background animation */
+        body {
+            margin: 0; /* Ensure no default margin interferes */
+            overflow: hidden; /* Hide moving shapes outside viewport */
+            /* Initial background color */
+            background: linear-gradient(45deg, #4a235a, #334d50); /* Initial gradient */
+            animation: background-animation 15s infinite alternate linear; /* Background color animation */
+            position: relative; /* Needed for absolute positioning of shapes */
+            min-height: 100vh; /* Ensure body takes full viewport height */
+        }
+
+        @keyframes background-animation {
+            0% { background: linear-gradient(45deg, #4a235a, #334d50); } /* Purple to Blue */
+            50% { background: linear-gradient(45deg, #334d50, #4a235a); } /* Blue to Purple */
+            100% { background: linear-gradient(45deg, #4a235a, #334d50); } /* Back to Purple to Blue */
+        }
+
+        /* Floating shapes in background */
+        body::before,
+        body::after {
+            content: '';
+            position: absolute;
+            width: 150px; /* Size of shapes */
+            height: 150px;
+            background: rgba(255, 255, 255, 0.1); /* Semi-transparent white */
+            border-radius: 50%; /* Make shapes circular */
+            z-index: -1; /* Place behind content */
+            animation: float 10s infinite ease-in-out alternate; /* Floating animation */
+        }
+
+        body::before {
+            top: 10%; left: 10%;
+            animation-duration: 12s; /* Different speed */
+            animation-delay: 1s; /* Different delay */
+        }
+
+        body::after {
+            bottom: 15%; right: 15%;
+            width: 120px; height: 120px;
+            animation-duration: 10s;
+            animation-delay: 0s;
+        }
+
+        @keyframes float {
+            0% { transform: translate(0, 0) rotate(0deg); }
+            50% { transform: translate(20px, 30px) rotate(180deg); }
+            100% { transform: translate(0, 0) rotate(360deg); }
+        }
+
+
+        /* "Study Smarter" header styling */
+        .app-title {
+            text-align: center;
+            color: #fff; /* White text */
+            margin-bottom: 20px; /* Space below title */
+            font-size: 2.5em; /* Large font size */
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5); /* Add a shadow */
+            z-index: 1; /* Ensure title is above background shapes */
+            position: relative; /* Needed for z-index to work */
+        }
+
+
+        /* Glowing border for chat container */
+        .chat-container {
+            z-index: 1; /* Ensure container is above background shapes */
+            position: relative; /* Needed for z-index and potential transform */
+            /* Initial box shadow, will be overridden by animation */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            animation: glowing-border 3s infinite alternate ease-in-out; /* Glowing animation */
+        }
+
+        @keyframes glowing-border {
+            0% { box-shadow: 0 0 5px #6a11cb, 0 0 10px #2575fc; border-color: #6a11cb; } /* Purple/Blue glow */
+            50% { box-shadow: 0 0 15px #2575fc, 0 0 25px #6a11cb; border-color: #2575fc; } /* Blue/Purple glow */
+            100% { box-shadow: 0 0 5px #6a11cb, 0 0 10px #2575fc; border-color: #6a11cb; } /* Back to Purple/Blue glow */
+        }
+
+         /* Adjust chat container padding/margin slightly if needed so glow is visible */
+         .chat-container {
+            /* ... previous styles ... */
+            padding: 15px; /* Ensure some internal space */
+            margin: 20px auto; /* Center the container and add margin */
+         }
+
+         /* Ensure chat box height is calculated correctly within container */
+         .chat-box {
+             /* ... previous styles ... */
+             height: calc(100% - 60px); /* Adjust based on input area height */
+             box-sizing: border-box; /* Include padding in height */
+         }
+
+
+    </style>
 </head>
 <body>
+    <h1 class="app-title">Study Smarter</h1>
+
     <div class="chat-container">
         <div class="chat-box" id="chatBox">
             <div class="message ai-message">
