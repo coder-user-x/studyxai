@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>StudyxAi Chat</title>
     <link rel="stylesheet" href="style.css">
-           <style>
+              <style>
         /* --- ADDED: Ensure consistent box model for all elements --- */
         * {
             box-sizing: border-box;
@@ -18,8 +18,9 @@
         body {
             font-family: sans-serif;
             margin: 0; /* Ensure body margin is 0 */
+            /* --- OVERRIDING style.css padding: 20px --- */
             padding: 0; /* Ensure body padding is 0 */
-            overflow: hidden; /* Hide moving shapes outside viewport */
+            /* --- Using 100vh for better full-screen filling --- */
             min-height: 100vh; /* Ensure body takes full viewport height */
             display: flex; /* Use flexbox for layout */
             flex-direction: column; /* Stack children vertically (Title on top, Chat Box below) */
@@ -105,7 +106,6 @@
         .app-title {
             text-align: center;
             color: #fff; /* White text */
-            /* --- CHANGED: Slightly reduced top/bottom margin again --- */
             margin: 10px auto; /* Adjust top/bottom margin as needed */
             font-size: 2.8em; /* Larger font size */
             text-shadow: 3px 3px 6px rgba(0,0,0,0.6); /* Stronger shadow */
@@ -127,11 +127,11 @@
             display: flex; /* Make container a flex container */
             flex-direction: column; /* Stack chat box and input area vertically */
             flex-grow: 1; /* ALLOW chat container to grow and take remaining vertical space in the body */
-            /* Rely only on flex-grow */
+            /* --- OVERRIDING style.css height: 80vh --- */
+            height: auto; /* Allow height to be determined by content and flex-grow */
             min-height: 0; /* Important: Allows flex item (and its content) to shrink below content size */
             z-index: 1; /* Ensure container is above background shapes */
             position: relative; /* Needed for z-index and glow */
-             /* --- CHANGED: Slightly reduced bottom margin again --- */
             margin-bottom: 10px; /* Adjust bottom margin as needed */
             padding: 0; /* Remove padding from container itself */
 
