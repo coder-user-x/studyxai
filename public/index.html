@@ -6,97 +6,189 @@
     <title>StudyxAi Chat</title>
     <link rel="stylesheet" href="style.css">
     <style>
-        /* Styles added directly in index.html */
+        /* --- Styles added directly in index.html --- */
 
-        /* Body background animation */
+        /* Body setup for flex layout and background */
         body {
-            margin: 0; /* Ensure no default margin interferes */
+            font-family: sans-serif; /* Ensure font is applied */
+            margin: 0; /* Remove default body margin */
+            padding: 0; /* Remove default body padding */
             overflow: hidden; /* Hide moving shapes outside viewport */
-            /* Initial background color */
-            background: linear-gradient(45deg, #4a235a, #334d50); /* Initial gradient */
-            animation: background-animation 15s infinite alternate linear; /* Background color animation */
-            position: relative; /* Needed for absolute positioning of shapes */
             min-height: 100vh; /* Ensure body takes full viewport height */
+            display: flex; /* Use flexbox for layout */
+            flex-direction: column; /* Stack children vertically */
+            align-items: center; /* Center children horizontally */
+            justify-content: flex-start; /* Align items to the top */
+            position: relative; /* Needed for absolute positioning of shapes */
+
+            /* Background animation */
+            background: linear-gradient(45deg, #4a235a, #334d50); /* Initial gradient */
+            animation: background-animation 20s infinite alternate ease-in-out; /* Smoother, longer animation */
         }
 
         @keyframes background-animation {
             0% { background: linear-gradient(45deg, #4a235a, #334d50); } /* Purple to Blue */
-            50% { background: linear-gradient(45deg, #334d50, #4a235a); } /* Blue to Purple */
-            100% { background: linear-gradient(45deg, #4a235a, #334d50); } /* Back to Purple to Blue */
+            25% { background: linear-gradient(45deg, #334d50, #6e3b7d); } /* Blue to Lighter Purple */
+            50% { background: linear-gradient(45deg, #6e3b7d, #334d50); } /* Lighter Purple to Blue */
+            75% { background: linear-gradient(45deg, #334d50, #4a235a); } /* Blue to Purple */
+            100% { background: linear-gradient(45deg, #4a235a, #334d50); } /* Back to start */
         }
 
         /* Floating shapes in background */
-        body::before,
-        body::after {
+        /* We'll create a few distinct shapes with varied animations */
+        .background-shape {
             content: '';
             position: absolute;
-            width: 150px; /* Size of shapes */
-            height: 150px;
-            background: rgba(255, 255, 255, 0.1); /* Semi-transparent white */
-            border-radius: 50%; /* Make shapes circular */
+            background: rgba(255, 255, 255, 0.08); /* Semi-transparent white */
             z-index: -1; /* Place behind content */
-            animation: float 10s infinite ease-in-out alternate; /* Floating animation */
         }
 
-        body::before {
-            top: 10%; left: 10%;
-            animation-duration: 12s; /* Different speed */
-            animation-delay: 1s; /* Different delay */
-        }
-
-        body::after {
-            bottom: 15%; right: 15%;
+        .shape1 {
             width: 120px; height: 120px;
-            animation-duration: 10s;
-            animation-delay: 0s;
+            top: 10%; left: 15%;
+            border-radius: 50%; /* Circle */
+            animation: float 15s infinite ease-in-out alternate, pulse-opacity 8s infinite alternate;
+            animation-delay: 0s, 1s;
         }
+
+        .shape2 {
+            width: 150px; height: 150px;
+            bottom: 15%; right: 20%;
+            border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%; /* Organic shape */
+            animation: float 18s infinite ease-in-out alternate, pulse-scale 9s infinite alternate;
+            animation-delay: 2s, 0s;
+        }
+
+         .shape3 {
+            width: 80px; height: 80px;
+            top: 30%; right: 10%;
+            border-radius: 50%; /* Circle */
+            animation: float 10s infinite linear alternate, pulse-opacity 6s infinite alternate;
+            animation-delay: 3s, 2s;
+        }
+
+        .shape4 {
+            width: 100px; height: 100px;
+            bottom: 5%; left: 10%;
+            border-radius: 70% 30% 30% 70% / 70% 70% 30% 30%; /* Organic shape */
+            animation: float 14s infinite ease-in-out alternate, pulse-scale 7s infinite alternate;
+            animation-delay: 1s, 3s;
+        }
+
 
         @keyframes float {
-            0% { transform: translate(0, 0) rotate(0deg); }
-            50% { transform: translate(20px, 30px) rotate(180deg); }
-            100% { transform: translate(0, 0) rotate(360deg); }
+            0% { transform: translate(0, 0) rotate(0deg) scale(1); }
+            50% { transform: translate(20px, 40px) rotate(180deg) scale(1.05); }
+            100% { transform: translate(0, 0) rotate(360deg) scale(1); }
         }
+
+         @keyframes pulse-opacity {
+             0% { opacity: 0.08; }
+             50% { opacity: 0.15; }
+             100% { opacity: 0.08; }
+         }
+
+          @keyframes pulse-scale {
+             0% { transform: scale(1); }
+             50% { transform: scale(1.05); }
+             100% { transform: scale(1); }
+         }
 
 
         /* "Study Smarter" header styling */
         .app-title {
             text-align: center;
             color: #fff; /* White text */
-            margin-bottom: 20px; /* Space below title */
-            font-size: 2.5em; /* Large font size */
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.5); /* Add a shadow */
+            margin: 20px auto; /* Top/Bottom margin, auto left/right for centering */
+            font-size: 2.8em; /* Larger font size */
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.6); /* Stronger shadow */
             z-index: 1; /* Ensure title is above background shapes */
-            position: relative; /* Needed for z-index to work */
+            position: relative; /* Needed for z-index */
+            letter-spacing: 2px; /* Add some spacing */
         }
 
 
-        /* Glowing border for chat container */
+        /* Chat container layout and glowing border */
         .chat-container {
+            width: 100%;
+            max-width: 700px;
+            background-color: rgba(255, 255, 255, 0.95); /* Slightly transparent white background */
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.3); /* Initial shadow */
+            border-radius: 8px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            /* Adjust height to take remaining vertical space */
+            height: calc(100vh - 120px); /* Total viewport height minus rough space for title+margins */
+            flex-grow: 1; /* Allow it to grow and fill space */
             z-index: 1; /* Ensure container is above background shapes */
-            position: relative; /* Needed for z-index and potential transform */
-            /* Initial box shadow, will be overridden by animation */
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-            animation: glowing-border 3s infinite alternate ease-in-out; /* Glowing animation */
+            position: relative; /* Needed for z-index and glow */
+            margin-bottom: 20px; /* Add margin at the bottom */
+
+            /* Glowing animation */
+            animation: glowing-border 4s infinite alternate ease-in-out; /* Longer, smoother glow */
         }
 
         @keyframes glowing-border {
-            0% { box-shadow: 0 0 5px #6a11cb, 0 0 10px #2575fc; border-color: #6a11cb; } /* Purple/Blue glow */
-            50% { box-shadow: 0 0 15px #2575fc, 0 0 25px #6a11cb; border-color: #2575fc; } /* Blue/Purple glow */
-            100% { box-shadow: 0 0 5px #6a11cb, 0 0 10px #2575fc; border-color: #6a11cb; } /* Back to Purple/Blue glow */
+            0% { box-shadow: 0 0 8px #6a11cb, 0 0 15px #2575fc; border-color: #6a11cb; } /* Purple/Blue glow */
+            50% { box-shadow: 0 0 20px #2575fc, 0 0 30px #6a11cb; border-color: #2575fc; } /* Blue/Purple glow */
+            100% { box-shadow: 0 0 8px #6a11cb, 0 0 15px #2575fc; border-color: #6a11cb; } /* Back to Purple/Blue glow */
         }
 
-         /* Adjust chat container padding/margin slightly if needed so glow is visible */
-         .chat-container {
-            /* ... previous styles ... */
-            padding: 15px; /* Ensure some internal space */
-            margin: 20px auto; /* Center the container and add margin */
-         }
-
-         /* Ensure chat box height is calculated correctly within container */
+         /* Adjust chat box height calculation within container */
          .chat-box {
              /* ... previous styles ... */
-             height: calc(100% - 60px); /* Adjust based on input area height */
+             /* Height calculated to leave space for the input area */
+             height: calc(100% - 65px); /* Assuming input area takes about 65px */
              box-sizing: border-box; /* Include padding in height */
+             padding: 15px; /* Ensure padding is applied */
+             overflow-y: auto; /* Keep scrolling */
+             background-color: transparent; /* Ensure chat box doesn't hide container background */
+         }
+
+         /* Style Input Area */
+         .input-area {
+             display: flex;
+             padding: 15px;
+             border-top: 1px solid #eee;
+             background-color: rgba(255, 255, 255, 0.8); /* Slightly transparent background */
+         }
+
+         .input-area input[type="text"] {
+             flex-grow: 1;
+             padding: 10px;
+             border: 1px solid #ccc;
+             border-radius: 5px;
+             margin-right: 10px;
+             font-size: 1em;
+             outline: none; /* Remove default outline */
+             transition: border-color 0.3s ease, box-shadow 0.3s ease; /* Smooth transition */
+         }
+
+         .input-area input[type="text"]:focus {
+             border-color: #6a11cb; /* Highlight border on focus */
+             box-shadow: 0 0 5px rgba(106, 17, 203, 0.5); /* Subtle glow on focus */
+         }
+
+         .input-area button {
+             padding: 10px 20px;
+             background: linear-gradient(45deg, #6a11cb, #2575fc); /* Gradient button */
+             color: white;
+             border: none;
+             border-radius: 5px;
+             cursor: pointer;
+             font-size: 1em;
+             transition: opacity 0.3s ease, transform 0.3s ease; /* Smooth transition */
+             outline: none; /* Remove default outline */
+         }
+
+         .input-area button:hover {
+             opacity: 0.9; /* Slightly transparent on hover */
+             transform: translateY(-2px); /* Lift slightly on hover */
+         }
+
+         .input-area button:active {
+             transform: translateY(0); /* Press down on click */
          }
 
 
@@ -104,6 +196,12 @@
 </head>
 <body>
     <h1 class="app-title">Study Smarter</h1>
+
+     <div class="background-shape shape1"></div>
+    <div class="background-shape shape2"></div>
+    <div class="background-shape shape3"></div>
+    <div class="background-shape shape4"></div>
+
 
     <div class="chat-container">
         <div class="chat-box" id="chatBox">
