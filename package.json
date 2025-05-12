@@ -1,0 +1,18 @@
+{
+  "name": "studyxai-app",
+  "version": "1.0.0",
+  "description": "StudyxAi web service using Google Gemini API",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@google/generative-ai": "^0.x.x",
+    "dotenv": "^16.x.x",
+    "express": "^4.x.x"
+  }
+}
