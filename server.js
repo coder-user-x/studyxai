@@ -31,7 +31,7 @@ if (!apiKey) {
 // Initialize the Generative AI model
 const genAI = new GoogleGenerativeAI(apiKey);
 // Choose a model - 'gemini-pro' is generally good, 'gemini-1.5-flash-latest' is newer/faster
-const model = genAI.getGenerativeModel({ model: "gemini-pro" });
+const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash-latest" });
 
 // API endpoint to handle chat requests
 app.post('/api/chat', async (req, res) => {
