@@ -16,7 +16,7 @@
             overflow: hidden; /* Hide moving shapes outside viewport */
             min-height: 100vh; /* Ensure body takes full viewport height */
             display: flex; /* Use flexbox for layout */
-            flex-direction: column; /* Stack children vertically */
+            flex-direction: column; /* Stack children vertically (Title on top, Chat Box below) */
             align-items: center; /* Center children horizontally */
             justify-content: flex-start; /* Align items to the top */
             position: relative; /* Needed for absolute positioning of shapes */
@@ -105,6 +105,7 @@
             z-index: 1; /* Ensure title is above background shapes */
             position: relative; /* Needed for z-index */
             letter-spacing: 2px; /* Add some spacing */
+            /* No flex properties needed here, just takes its natural height */
         }
 
 
@@ -116,14 +117,16 @@
             box-shadow: 0 0 15px rgba(0, 0, 0, 0.3); /* Initial shadow */
             border-radius: 8px;
             overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            /* Adjust height to take remaining vertical space */
-            height: calc(100vh - 120px); /* Total viewport height minus rough space for title+margins */
-            flex-grow: 1; /* Allow it to grow and fill space */
+            display: flex; /* Make container a flex container */
+            flex-direction: column; /* Stack chat box and input area vertically */
+            /* --- REMOVED: height: calc(100vh - 120px); --- */
+            flex-grow: 1; /* ALLOW chat container to grow and take remaining vertical space in the body */
+            min-height: 0; /* Important: Allows flex item to shrink below content size */
             z-index: 1; /* Ensure container is above background shapes */
             position: relative; /* Needed for z-index and glow */
             margin-bottom: 20px; /* Add margin at the bottom */
+            padding: 0; /* Remove padding from container itself if using it on chat-box/input-area */
+
 
             /* Glowing animation */
             animation: glowing-border 4s infinite alternate ease-in-out; /* Longer, smoother glow */
@@ -135,27 +138,30 @@
             100% { box-shadow: 0 0 8px #6a11cb, 0 0 15px #2575fc; border-color: #6a11cb; } /* Back to Purple/Blue glow */
         }
 
-         /* Adjust chat box height calculation within container */
+         /* Chat box (conversation history) */
          .chat-box {
              /* ... previous styles ... */
-             /* Height calculated to leave space for the input area */
-             height: calc(100% - 65px); /* Assuming input area takes about 65px */
-             box-sizing: border-box; /* Include padding in height */
+             /* --- REMOVED: height: calc(100% - 65px); --- */
+             flex-grow: 1; /* ALLOW chat box to grow and fill space inside the chat container */
+             min-height: 0; /* Important: Allows flex item to shrink below content size */
+             box-sizing: border-box; /* Include padding in height/width */
              padding: 15px; /* Ensure padding is applied */
-             overflow-y: auto; /* Keep scrolling */
+             overflow-y: auto; /* Keep scrolling for conversation history */
              background-color: transparent; /* Ensure chat box doesn't hide container background */
          }
 
          /* Style Input Area */
          .input-area {
-             display: flex;
+             display: flex; /* Input area is also a flex container for input field and button */
              padding: 15px;
              border-top: 1px solid #eee;
              background-color: rgba(255, 255, 255, 0.8); /* Slightly transparent background */
+             /* Input area takes only the space it needs, doesn't grow */
+             flex-shrink: 0; /* Prevent it from shrinking if space is limited */
          }
 
          .input-area input[type="text"] {
-             flex-grow: 1;
+             flex-grow: 1; /* Allow input field to grow and fill horizontal space */
              padding: 10px;
              border: 1px solid #ccc;
              border-radius: 5px;
@@ -180,6 +186,7 @@
              font-size: 1em;
              transition: opacity 0.3s ease, transform 0.3s ease; /* Smooth transition */
              outline: none; /* Remove default outline */
+              flex-shrink: 0; /* Prevent button from shrinking */
          }
 
          .input-area button:hover {
@@ -189,6 +196,21 @@
 
          .input-area button:active {
              transform: translateY(0); /* Press down on click */
+         }
+
+         /* Optional: Style for the messages themselves */
+         .message {
+             margin-bottom: 15px; /* Add a bit more space between messages */
+             line-height: 1.5; /* Improve readability */
+             /* ... rest of existing .message styles from style.css ... */
+         }
+         .user-message {
+             /* ... existing user-message styles ... */
+             background-color: #dcf8c6; /* Example from previous style.css */
+         }
+         .ai-message {
+              /* ... existing ai-message styles ... */
+             background-color: #e9e9eb; /* Example from previous style.css */
          }
 
 
