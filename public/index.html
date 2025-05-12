@@ -5,14 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>StudyxAi Chat</title>
     <link rel="stylesheet" href="style.css">
-        <style>
+           <style>
         /* --- Styles added directly in index.html --- */
 
         /* Body setup for flex layout and background */
         body {
             font-family: sans-serif; /* Ensure font is applied */
-            margin: 0; /* Remove default body margin */
-            padding: 0; /* Remove default body padding */
+            margin: 0; /* Ensure body margin is 0 */
+            padding: 0; /* --- ADDED/CHANGED: Ensure body padding is 0 --- */
             overflow: hidden; /* Hide moving shapes outside viewport */
             min-height: 100vh; /* Ensure body takes full viewport height */
             display: flex; /* Use flexbox for layout */
@@ -99,7 +99,8 @@
         .app-title {
             text-align: center;
             color: #fff; /* White text */
-            margin: 20px auto; /* Top/Bottom margin, auto left/right for centering */
+            /* --- CHANGED: Slightly reduced top/bottom margin --- */
+            margin: 15px auto; /* Adjust top/bottom margin as needed */
             font-size: 2.8em; /* Larger font size */
             text-shadow: 3px 3px 6px rgba(0,0,0,0.6); /* Stronger shadow */
             z-index: 1; /* Ensure title is above background shapes */
@@ -120,14 +121,13 @@
             display: flex; /* Make container a flex container */
             flex-direction: column; /* Stack chat box and input area vertically */
             flex-grow: 1; /* ALLOW chat container to grow and take remaining vertical space in the body */
-            /* --- ADDED --- */
             height: 100%; /* Explicitly take 100% of the available height given by flex-grow */
-            /* --- END ADDED --- */
-            min-height: 0; /* Important: Allows flex item to shrink below content size */
+            min-height: 0; /* Important: Allows flex item (and its content) to shrink below content size */
             z-index: 1; /* Ensure container is above background shapes */
             position: relative; /* Needed for z-index and glow */
-            margin-bottom: 20px; /* Add margin at the bottom */
-            padding: 0; /* Remove padding from container itself if using it on chat-box/input-area */
+            /* --- CHANGED: Slightly reduced bottom margin --- */
+            margin-bottom: 15px; /* Adjust bottom margin as needed */
+            padding: 0; /* Remove padding from container itself */
 
 
             /* Glowing animation */
@@ -145,8 +145,8 @@
              /* ... previous styles ... */
              flex-grow: 1; /* ALLOW chat box to grow and fill space inside the chat container */
              min-height: 0; /* Important: Allows flex item to shrink below content size */
-             box-sizing: border-box; /* Include padding in height/width */
-             padding: 15px; /* Ensure padding is applied */
+             box-sizing: border-box; /* Include padding and border in element's total size */
+             padding: 15px; /* Keep padding here */
              overflow-y: auto; /* Keep scrolling for conversation history */
              background-color: transparent; /* Ensure chat box doesn't hide container background */
          }
@@ -154,11 +154,14 @@
          /* Style Input Area */
          .input-area {
              display: flex; /* Input area is also a flex container for input field and button */
-             padding: 15px;
+             padding: 15px; /* Keep padding here */
              border-top: 1px solid #eee;
              background-color: rgba(255, 255, 255, 0.8); /* Slightly transparent background */
              /* Input area takes only the space it needs, doesn't grow */
              flex-shrink: 0; /* Prevent it from shrinking if space is limited */
+             /* --- ADDED: Ensure no extra margin or padding on the input area itself --- */
+             margin: 0;
+             box-sizing: border-box; /* Include padding and border in element's total size */
          }
 
          .input-area input[type="text"] {
@@ -170,6 +173,7 @@
              font-size: 1em;
              outline: none; /* Remove default outline */
              transition: border-color 0.3s ease, box-shadow 0.3s ease; /* Smooth transition */
+             box-sizing: border-box; /* Include padding and border in element's total size */
          }
 
          .input-area input[type="text"]:focus {
@@ -188,6 +192,7 @@
              transition: opacity 0.3s ease, transform 0.3s ease; /* Smooth transition */
              outline: none; /* Remove default outline */
               flex-shrink: 0; /* Prevent button from shrinking */
+              box-sizing: border-box; /* Include padding and border in element's total size */
          }
 
          .input-area button:hover {
@@ -203,6 +208,8 @@
          .message {
              margin-bottom: 15px; /* Add a bit more space between messages */
              line-height: 1.5; /* Improve readability */
+             word-wrap: break-word; /* Ensure long words break */
+             overflow-wrap: break-word; /* Ensure long words break */
              /* ... rest of existing .message styles from style.css ... */
          }
          .user-message {
@@ -229,7 +236,7 @@
     <div class="chat-container">
         <div class="chat-box" id="chatBox">
             <div class="message ai-message">
-                <p>Hello! I'm StudyxAi developed by Study Smarter. How can I help you study today?</p>
+                <p>Hello! I'm StudyxAi. How can I help you study today?</p>
             </div>
         </div>
         <div class="input-area">
